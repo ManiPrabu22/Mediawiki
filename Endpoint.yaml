@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: backend-mobile-db-service
+spec:
+  clusterIP: None
+  ports:
+  - port: 3306  #MySQL DB port
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: backend-mobile-db-service
+subsets:
+  - addresses:
+        - ip: 192.168.1.7  #MySQL DB IP
+    ports:
+      - port: 3306   # MySQL DB port
+        name: backend-mobile-db-service

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mediawiki-deployment
+spec:
+  selector:
+    matchLabels:
+      app: mediawiki
+  replicas: 2 
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: mediawiki
+    spec:
+      containers:
+      - name: mediawiki-app
+        image: 192.168.1.7:5000/php_apache2:latest  #private docker registry Image Link
+        ports:
+        - containerPort: 80
